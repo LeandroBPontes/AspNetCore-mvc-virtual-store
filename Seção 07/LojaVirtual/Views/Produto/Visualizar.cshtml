@@ -1,0 +1,25 @@
+﻿<!-- indicando o que sera apresentado-->
+
+@model LojaVirtual.Models.Produto
+
+
+<h3> Produto -> Visualizar </h3>
+
+<!-- Linguagens C# e HTML-->
+<!-- Razor permite a utilização do C#-->
+<!-- no Razor arroba serve para escrever algo-->
+<!-- no Razor arroba {} arroba, serve para trabalhar com a linguagem-->
+Razor:
+
+@{
+    string nome = "Leandro Barros";
+
+}
+<h3>@nome</h3>
+<br />
+
+<h2> Produtos</h2><br />
+<b>Código: </b> @Model.Id<br />
+<b>Nome: </b> @Model.Nome<br />
+<b>Descrição: </b> @Model.Descricao<br />
+<b>Valor: </b> @Model.Valor.ToString("C")
