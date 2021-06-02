@@ -80,3 +80,4 @@ C:\Users\leand\Desktop\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\bin\Debug
 C:\Users\leand\Desktop\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\leand\Desktop\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\leand\Desktop\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
+C:\Users\leand\Desktop\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache

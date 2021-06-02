@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using LojaVirtual.Repositories;
+using LojaVirtual.Repositories.Contracts;
+using LojaVirtual.Libraries.Sessao;
+using LojaVirtual.Libraries.Login;
 
 namespace LojaVirtual
 {
@@ -31,14 +34,33 @@ namespace LojaVirtual
 
             services.AddControllersWithViews();
 
+            
+
             // connect string -> propriedades (sql)
 
             string connection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LojaVirtual;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             
             services.AddDbContext<LojaVirtualContext>(options => options.UseSqlServer(connection));
+            
 
             // serviço do REPOSITORY -> INTERFACE E IMPLEMENTAÇÃO
             services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<INewsLetterRepository, NewsLetterRepository>();
+
+            //para utilizar sessoes nas outras classes
+            services.AddHttpContextAccessor();
+
+            //Configurando Sessão
+            services.AddMemoryCache();//guardar dados na memoria
+            services.AddSession(options =>
+            {
+                
+            });
+
+            services.AddScoped<Sessao>();
+            //injeção de dependencias
+            services.AddScoped<LoginCliente>();
+
         }
 
         
@@ -62,6 +84,9 @@ namespace LojaVirtual
             app.UseDefaultFiles();
             app.UseRouting();
             app.UseAuthorization();
+
+            //Sessão
+            app.UseSession();
 
 
             /*

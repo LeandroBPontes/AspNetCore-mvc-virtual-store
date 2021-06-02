@@ -9,6 +9,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using LojaVirtual.Database;
 using LojaVirtual.Repositories;
+using LojaVirtual.Repositories.Contracts;
+using LojaVirtual.Libraries.Login;
 
 namespace LojaVirtual.Controllers
 {
@@ -16,10 +18,14 @@ namespace LojaVirtual.Controllers
     {
 
         //construtor para fazer injeção de dependencias
-        private IClienteRepository _repository;
-        public HomeController(IClienteRepository repository)
+        private IClienteRepository _repositoryCliente;
+        private INewsLetterRepository _repositoryNewsLetter;
+        private LoginCliente _loginCliente;
+        public HomeController(IClienteRepository repositoryCliente, INewsLetterRepository repositoryNewsLetter, LoginCliente loginCliente)
         {
-            _repository = repository;
+            _repositoryCliente = repositoryCliente;
+            _repositoryNewsLetter = repositoryNewsLetter;
+            _loginCliente = loginCliente;
         }
 
         //metodo controlador do arquivo Index.cshtml em Views/Home
@@ -38,17 +44,16 @@ namespace LojaVirtual.Controllers
             //verifica as validações em NewsLetterEmail no campo email
              if (ModelState.IsValid)
              {
-                /*
+                
                  //adiciona no banco e salva
-                 _banco.NewsLetterEmail.Add(newsLetter);
-                 _banco.SaveChanges();
-
+                  _repositoryNewsLetter.Cadastrar(newsLetter);
+                
                  //quando n é enviado para a view
                  //armazena dados temporariamente
                  TempData["MSG_S"] = "E-mail cadastrado com sucesso! Fique atento às promoções";
 
                  //redireciona para index
-            */
+            
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -130,9 +135,46 @@ namespace LojaVirtual.Controllers
         }
 
         //metodo controlador do arquivo Login.cshtml em Views/Home
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login([FromForm]Cliente cliente)
+        {
+            Cliente clienteDB = _repositoryCliente.Login(cliente.Email, cliente.Senha);
+
+            if(clienteDB != null)
+            {
+                _loginCliente.Login(clienteDB);
+
+                return new RedirectResult(Url.Action(nameof(Painel)));
+            }
+            else
+            {
+                ViewData["MSG_E"] = "Usuário não encontrado, verifique o E-mail ou Senha digitados";
+                return View();
+            }
+            
+          
+        }
+
+        //painel de controle para clientes
+
+        [HttpGet]
+        public IActionResult Painel()
+        {
+            Cliente cliente = _loginCliente.GetCliente();
+            if(cliente != null)
+            {
+                return new ContentResult() { Content = "Usuário " + cliente.Id + ". E-mail: " + cliente.Email + "- Idade: " +DateTime.Now.AddYears(-cliente.Nascimento.Year).ToString("yyyy")+" Logado!"};
+            }
+            else
+            {
+                return new ContentResult() { Content = "Acesso Negado." };
+            }
         }
 
         //metodo controlador do arquivo CadastroCliente.cshtml em Views/Home
@@ -149,7 +191,7 @@ namespace LojaVirtual.Controllers
             {
 
                 //adiciona no banco e salva
-               _repository.Cadastrar(cliente);
+               _repositoryCliente.Cadastrar(cliente);
                
                 //quando n é enviado para a view
                 //armazena dados temporariamente

@@ -1,5 +1,6 @@
 ﻿using LojaVirtual.Database;
 using LojaVirtual.Models;
+using LojaVirtual.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace LojaVirtual.Repositories
 
         public Cliente Login(string Email, string Senha)
         {
-            Cliente cliente = _banco.Clientes.Where(m=> m.Email == Email && m.Senha == Senha).First();
+            Cliente cliente = _banco.Clientes.Where(m=> m.Email == Email && m.Senha == Senha).FirstOrDefault();
             return cliente;
         }
 
@@ -50,7 +51,7 @@ namespace LojaVirtual.Repositories
             return _banco.Clientes.Find(Id);
         }
 
-        public List<Cliente> ObterTodosClientes()
+        public IEnumerable<Cliente> ObterTodosClientes()
         {
             return _banco.Clientes.ToList();
         }
