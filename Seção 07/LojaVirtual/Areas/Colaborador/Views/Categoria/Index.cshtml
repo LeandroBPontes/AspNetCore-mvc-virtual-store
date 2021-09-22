@@ -1,4 +1,4 @@
-﻿@model List<LojaVirtual.Models.Categoria>
+﻿@model X.PagedList.IPagedList<LojaVirtual.Models.Categoria>
 @{
     ViewData["Title"] = "Index";
 }
@@ -6,5 +6,8 @@
 <h1>Index</h1>
 
 @foreach (Categoria categoria in Model) {
-                @categoria.Nome<br />
-            }
+    @categoria.Nome
+    <br />
+}
+//numero das paginas e links
+@Html.PagedListPager((IPagedList)Model, pagina => Url.Action("Index", new { pagina }))

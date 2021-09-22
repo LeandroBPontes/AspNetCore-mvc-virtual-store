@@ -15,8 +15,8 @@ namespace LojaVirtual.Areas.Colaborador.Controllers {
         public CategoriaController(ICategoriaRepository categoriaRepository) {
             _categoriaRepository = categoriaRepository;
         }
-        public IActionResult Index() {
-            List<Categoria> categorias =  _categoriaRepository.ObterTodasCategorias().ToList();
+        public IActionResult Index(int? pagina) { 
+            var categorias =  _categoriaRepository.ObterTodasCategorias(pagina);
             return View(categorias);
             
         }

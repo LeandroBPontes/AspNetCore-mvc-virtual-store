@@ -5,10 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace LojaVirtual.Repositories {
     public class CategoriaRepository : ICategoriaRepository {
 
+        const int RegistroPorPagina = 10;
+        
         LojaVirtualContext _banco;
         public CategoriaRepository(LojaVirtualContext banco) {
             _banco = banco;
@@ -37,8 +40,11 @@ namespace LojaVirtual.Repositories {
             
         }
 
-        public IEnumerable<Categoria> ObterTodasCategorias() {
-            return _banco.Categorias.ToList();
+       
+        public IPagedList<Categoria> ObterTodasCategorias(int? pagina) {
+            //caso pagina seja nulo, recebe 1
+            int NumeroPagina = pagina ?? 1;
+            return _banco.Categorias.ToPagedList<Categoria>(NumeroPagina, RegistroPorPagina);
         }
     }
 }
