@@ -24,8 +24,6 @@ namespace LojaVirtual.Libraries.Login
             string clienteJSONString = JsonConvert.SerializeObject(cliente);
 
             _sessao.Cadastrar(Key, clienteJSONString);
-
-
         }
         public Cliente GetCliente()
         {
@@ -41,8 +39,6 @@ namespace LojaVirtual.Libraries.Login
             {
                 return null;
             }
-
-            
         }
 
         public void Logout()

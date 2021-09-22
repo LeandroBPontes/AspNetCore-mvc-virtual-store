@@ -11,6 +11,7 @@ using LojaVirtual.Database;
 using LojaVirtual.Repositories;
 using LojaVirtual.Repositories.Contracts;
 using LojaVirtual.Libraries.Login;
+using LojaVirtual.Libraries.Filtro;
 
 namespace LojaVirtual.Controllers
 {
@@ -135,6 +136,7 @@ namespace LojaVirtual.Controllers
         }
 
         //metodo controlador do arquivo Login.cshtml em Views/Home
+        
         [HttpGet]
         public IActionResult Login()
         {
@@ -164,17 +166,14 @@ namespace LojaVirtual.Controllers
         //painel de controle para clientes
 
         [HttpGet]
+        [ClienteAutorizacao]
+        //em Filtro -> ClienteAutorizacaoAttribute
         public IActionResult Painel()
         {
-            Cliente cliente = _loginCliente.GetCliente();
-            if(cliente != null)
+            return new ContentResult()
             {
-                return new ContentResult() { Content = "Usuário " + cliente.Id + ". E-mail: " + cliente.Email + "- Idade: " +DateTime.Now.AddYears(-cliente.Nascimento.Year).ToString("yyyy")+" Logado!"};
-            }
-            else
-            {
-                return new ContentResult() { Content = "Acesso Negado." };
-            }
+                Content = "Este é o painel"
+            };
         }
 
         //metodo controlador do arquivo CadastroCliente.cshtml em Views/Home

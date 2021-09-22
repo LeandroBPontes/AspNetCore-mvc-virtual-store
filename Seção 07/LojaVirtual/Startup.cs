@@ -15,6 +15,7 @@ using LojaVirtual.Repositories;
 using LojaVirtual.Repositories.Contracts;
 using LojaVirtual.Libraries.Sessao;
 using LojaVirtual.Libraries.Login;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LojaVirtual
 {
@@ -30,9 +31,9 @@ namespace LojaVirtual
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // connect com o banco
-
-            services.AddControllersWithViews();
+            
+        // connect com o banco
+        services.AddControllersWithViews();
 
             
 
@@ -46,6 +47,8 @@ namespace LojaVirtual
             // serviço do REPOSITORY -> INTERFACE E IMPLEMENTAÇÃO
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<INewsLetterRepository, NewsLetterRepository>();
+            services.AddScoped<IColaboradorRepository, ColaboradorRepository>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
             //para utilizar sessoes nas outras classes
             services.AddHttpContextAccessor();
@@ -58,8 +61,9 @@ namespace LojaVirtual
             });
 
             services.AddScoped<Sessao>();
-            //injeção de dependencias
+            //injeção de dependencias sessao
             services.AddScoped<LoginCliente>();
+            services.AddScoped<LoginColaborador>();
 
         }
 
@@ -93,16 +97,24 @@ namespace LojaVirtual
              * url_site -> vai para qual controlador? -> são definidos por rotas
              * 
              * */
-           
+
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                   // pattern: "{controller=Home}/{action=Index}/{id?}");
-                   pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
-            
+             {
+
+                 //area precisa ficar acima
+                 endpoints.MapControllerRoute(
+                 name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                 endpoints.MapControllerRoute(
+                     name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                
+
+             });
+
         }
     }
 }

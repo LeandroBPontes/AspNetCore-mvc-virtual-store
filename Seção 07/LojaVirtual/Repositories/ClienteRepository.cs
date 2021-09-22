@@ -34,7 +34,7 @@ namespace LojaVirtual.Repositories
 
         public void Excluir(int Id)
         {
-            //eclui no banco e salva
+            //exclui no banco e salva
             Cliente cliente = ObterCliente(Id);
             _banco.Remove(cliente);
             _banco.SaveChanges();
