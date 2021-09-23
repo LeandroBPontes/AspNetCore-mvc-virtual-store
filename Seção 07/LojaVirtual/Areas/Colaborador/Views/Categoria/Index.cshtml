@@ -3,11 +3,65 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Categoria</h1>
 
-@foreach (Categoria categoria in Model) {
-    @categoria.Nome
-    <br />
+<a asp-action="Cadastrar" class="btn btn-primary mb-1">Cadastrar</a>
+
+@if (TempData["MSG_S"] != null) {
+    <p class="alert alert-success">@TempData["MSG_S"]</p>
 }
-//numero das paginas e links
-@Html.PagedListPager((IPagedList)Model, pagina => Url.Action("Index", new { pagina }))
+
+    @if (Model.Count > 0) {
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Categoria Pai</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Categoria categoria in Model) {
+                        <tr>
+                            <th scope="row">@categoria.Id</th>
+                            <td>@categoria.Nome</td>
+                            <td>
+                                @{ /*
+                                    verifica se tem nulo
+
+                                          @if (categoria.CategoriaPai != null) {
+                                          <span>@categoria.CategoriaPai.Id - @categoria.CategoriaPai.Nome  </span>
+
+                                          }
+                                          else {
+                                          <span>--</span>
+                                          }
+
+                                     DisplayFor faz a mesma coisa
+
+                               */ }
+
+                                @Html.DisplayFor(model => categoria.CategoriaPai.Id)
+                                -
+                                @Html.DisplayFor(model => categoria.CategoriaPai.Nome)
+
+                            </td>
+
+                            <td>
+                                <a asp-action="Atualizar" asp-route-id="@categoria.Id" class="btn btn-secondary">Atualizar</a>
+                                <a asp-action="Excluir" asp-route-id="@categoria.Id" class="btn btn-danger">Excluir</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @Html.PagedListPager((IPagedList)Model, pagina => Url.Action("Index", new { pagina }))
+    }
+    else {
+        <span>Nenhum registro cadastrado.</span>
+    }

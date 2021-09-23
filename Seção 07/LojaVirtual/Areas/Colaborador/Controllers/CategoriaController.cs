@@ -16,6 +16,9 @@ namespace LojaVirtual.Areas.Colaborador.Controllers {
             _categoriaRepository = categoriaRepository;
         }
         public IActionResult Index(int? pagina) { 
+            
+            
+            //topagedlist -> intuito de pegar apenas o necessario do banco
             var categorias =  _categoriaRepository.ObterTodasCategorias(pagina);
             return View(categorias);
             
@@ -26,10 +29,17 @@ namespace LojaVirtual.Areas.Colaborador.Controllers {
         }
         [HttpPost]
         public IActionResult Cadastrar([FromForm]Categoria categoria) {
+
+            if (ModelState.IsValid) {
+                _categoriaRepository.Cadastrar(categoria);
+                TempData["MSG_S"] = "Registro salvo com sucesso!";
+
+                return RedirectToAction(nameof(Index));
+            }
             return View();
         }
         [HttpGet]
-        public IActionResult Atualizar() {
+        public IActionResult Atualizar(int id) {
             return View();
         }
         [HttpPost]

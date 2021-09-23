@@ -323,3 +323,8 @@ C:\Users\leand\Desktop\PROJETOS\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\
 C:\Users\leand\Desktop\PROJETOS\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.genruntimeconfig.cache
 C:\Users\leand\Desktop\PROJETOS\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Categoria\Index.cshtml.g.cs
 C:\Users\leand\Desktop\PROJETOS\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Shared\_LayoutColaborador.cshtml.g.cs
+C:\Users\leand\Desktop\PROJETOS\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\bin\Debug\netcoreapp3.1\JetBrains.Annotations.dll
+C:\Users\leand\Desktop\PROJETOS\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\bin\Debug\netcoreapp3.1\X.PagedList.dll
+C:\Users\leand\Desktop\PROJETOS\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\bin\Debug\netcoreapp3.1\X.PagedList.Mvc.Core.dll
+C:\Users\leand\Desktop\PROJETOS\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\leand\Desktop\PROJETOS\ASPNETCoreMVCLojaVirtual\Seção 07\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Categoria\Cadastrar.cshtml.g.cs

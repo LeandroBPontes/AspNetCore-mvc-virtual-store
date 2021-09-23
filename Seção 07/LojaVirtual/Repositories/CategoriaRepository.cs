@@ -1,6 +1,7 @@
 ﻿using LojaVirtual.Database;
 using LojaVirtual.Models;
 using LojaVirtual.Repositories.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,9 @@ namespace LojaVirtual.Repositories {
         public IPagedList<Categoria> ObterTodasCategorias(int? pagina) {
             //caso pagina seja nulo, recebe 1
             int NumeroPagina = pagina ?? 1;
-            return _banco.Categorias.ToPagedList<Categoria>(NumeroPagina, RegistroPorPagina);
+            // return _banco.Categorias.ToPagedList<Categoria>(NumeroPagina, RegistroPorPagina);
+            //incluindo a categoriaPai para utilização no razor
+            return _banco.Categorias.Include(a=>a.CategoriaPai).ToPagedList<Categoria>(NumeroPagina, RegistroPorPagina);
         }
     }
 }
