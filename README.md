@@ -1,2 +1,2 @@
-# ASPNETCoreMVCLojaVirtual
- Curso de ASP.NET MVC - Criando uma Loja Virtual
+# Building a virtual store with ASP.NET MVC
+ASP.NET MVC - Criando uma Loja Virtual
